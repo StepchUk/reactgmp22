@@ -1,8 +1,9 @@
 import React from "react";
+import Hello from "./Components/Hello";
 
 function App() {
   return (
-    React.createElement('div', {}, 'Hello World')
+    <Hello />
   );
 }
 
