@@ -1,0 +1,16 @@
+.genre {
+  margin: 20px;
+  color: #555
+}
+
+.genre ul {
+  padding: 0px;
+}
+
+.genre ul li {
+  display: inline-block;
+}
+
+.genre ul li + li:before {
+  content: ", ";
+}
