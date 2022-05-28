@@ -4,12 +4,16 @@
 /node_modules
 /.pnp
 .pnp.js
+package-loc.json
 
 # testing
 /coverage
 
 # production
 /build
+
+# development
+/dev
 
 # misc
 .DS_Store
