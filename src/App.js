@@ -1,19 +1,13 @@
 import React from "react";
-import Hello from "./Components/Hello";
-import Counter from "./Components/Counter"
-import Search from "./Components/Search/Search";
-import Genre from "./Components/Genre/Genre"
-import { genresData } from "./Components/Genre/genresData";
+import Header from "./Components/header/Header";
 
-function App() {
-  return (
+const App = () => {
+  return(
     <>
-      <Hello />
-      <Search />
-      <Genre genres={genresData}/>
-      <Counter />
+    <h1>Default webpack config</h1>
+    <Header />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
