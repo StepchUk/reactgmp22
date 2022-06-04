@@ -3,7 +3,7 @@ import GenreFilter from "../../Components/UI/genreFilter/GenreFilter"
 import ResultSort from "../../Components/UI/resultSort/ResultSort"
 import VideosList from "../../Components/VideosList"
 
-const Boody = () => {
+const Body = () => {
   return(
     <main className="main">
       <section className="container">
@@ -17,4 +17,4 @@ const Boody = () => {
   )
 }
 
-export default Boody
+export default Body
