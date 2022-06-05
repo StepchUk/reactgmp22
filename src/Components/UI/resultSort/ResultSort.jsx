@@ -7,7 +7,7 @@ const ResultSort = () => {
     <div className="sortby">
       <label className="srtlable" htmlFor="srt">sort by</label>
         <select name="srt" id="srt">
-          {SORT_TYPE.map(type => <option value="{type}">{type}</option>)}
+          {SORT_TYPE.map(type => <option key={type} value="{type}">{type}</option>)}
         </select>
     </div>
   )
