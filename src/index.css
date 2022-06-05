@@ -96,8 +96,6 @@ p {
 .header__search {
   margin-top: 38px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .myInput {

@@ -17,14 +17,12 @@ const Header = () => {
             find your movie
           </div>
           <div className="header__search">
-            <div className="search__inner">
-              <MyInput
-                className="myInput"
-                type="text"
-                placeholder="What do you want to watch?"
-              />
-              <MyButton className="button__red">search</MyButton>
-            </div>
+            <MyInput
+              className="myInput"
+              type="text"
+              placeholder="What do you want to watch?"
+            />
+            <MyButton className="button__red">search</MyButton>
           </div>
         </div>
       </div>
