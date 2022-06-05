@@ -1,12 +1,14 @@
 import React from 'react'
 import { videos } from '../API/PostService'
-import ResultCount from './UI/resultCount/ResultCount'
 import VideoCard from './VideoCard'
 
 const VideosList = () => {
   return (
     <section className="container">
-      <ResultCount count={videos.length} />
+      <div className="search-result">
+        {videos.length} widies found
+      </div>
+
       <section className="films">
         {videos.map((video) => 
           <VideoCard
