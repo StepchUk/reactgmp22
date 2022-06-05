@@ -1,15 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-const GenreFilter = () => {
-  return (
+const GENRE = ['all', 'documentary', 'comedy', 'horror', 'crime'];
+
+const GenreFilter = () => (
     <div className="genre">
-      <div className="genre__item active">all</div>
-      <div className="genre__item">documentary</div>
-      <div className="genre__item">comedy</div>
-      <div className="genre__item">horror</div>
-      <div className="genre__item">crime</div>
+      {GENRE.map(genre => <div className="genre__item">{genre}</div>)}
     </div>
-  )
-}
+);
 
-export default GenreFilter
+export default GenreFilter;
