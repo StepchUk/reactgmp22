@@ -1,6 +1,5 @@
 import React from "react"
 import MyButton from "../../Components/UI/button/MyButton"
-import MyInput from "../../Components/UI/input/MyInput"
 
 const Header = () => {
   return(
@@ -17,7 +16,7 @@ const Header = () => {
             find your movie
           </div>
           <div className="header__search">
-            <MyInput
+            <input
               className="myInput"
               type="text"
               placeholder="What do you want to watch?"
