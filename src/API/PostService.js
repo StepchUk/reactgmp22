@@ -4,7 +4,7 @@ import killb from '../Assets/Images/kill_bill_2.jpg'
 import incep from '../Assets/Images/inception.jpg'
 import reserdogs from '../Assets/Images/reservoir_dogs.jpg'
 
-export const videos = [
+export const api = [
   {
     id: 1,
     title: 'Pulp Fiction',

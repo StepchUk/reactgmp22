@@ -3,7 +3,7 @@ import GenreFilter from "../../Components/UI/genreFilter/GenreFilter"
 import ResultSort from "../../Components/UI/resultSort/ResultSort"
 import VideosList from "../../Components/VideosList"
 
-const Body = () => {
+const Body = ({ videos, remove }) => {
   return(
     <main className="main">
       <section className="container">
@@ -12,7 +12,7 @@ const Body = () => {
           <ResultSort />
         </div>
       </section>
-      <VideosList />
+      <VideosList videos={videos} removeVideo={remove} />
     </main>
   )
 }
