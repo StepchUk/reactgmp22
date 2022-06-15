@@ -251,6 +251,20 @@ body {
 .filmcard {
   flex: 0 0 322px;
   margin: 25px 0 25px 0;
+  position: relative;
+}
+
+.showEdit {
+  top: 14px;
+  right: 14px;
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+}
+
+.filmcard:hover .showEdit {
+  opacity: 1;
+  transition: opacity .3s;
 }
 
 .card img {

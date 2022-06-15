@@ -2,15 +2,14 @@ import React from 'react';
 import style from './VideoModal.module.css';
 import PropTypes from 'prop-types';
 
-const VideoModal = ({title, children, visible, setVisible}) => {
+const VideoModal = ({className, title, children, visible, setVisible}) => {
 
-  const rootClasses = [style.videoModal]
+  const rootClasses = [style[className]]
 
   if (visible) {
     rootClasses.push(style.active)
   }
 
-  
   return (
     <div className={rootClasses.join(' ')} onClick={() => setVisible(false)}>
       <div className={style.videoModalContent} onClick={(e) => e.stopPropagation()}>
