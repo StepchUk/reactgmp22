@@ -1,7 +1,7 @@
 import React from "react"
 import MyButton from "../../Components/UI/button/MyButton"
 
-const Header = () => {
+const Header = ({ showModal }) => {
   return(
     <header className="header">
       <div className="container">
@@ -9,7 +9,7 @@ const Header = () => {
           <div className="header__logo">
             <b>netflix</b>roulette
           </div>
-          <MyButton className="button__gray-blurred">+ add movie</MyButton>
+          <MyButton className="button__gray-blurred" onClick={() => showModal(true)}>+ add movie</MyButton>
         </div>
         <div className="info">
           <div className="header__intro">

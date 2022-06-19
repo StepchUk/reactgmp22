@@ -1,8 +1,7 @@
 import React from 'react'
-import { videos } from '../API/PostService'
 import VideoCard from './VideoCard'
 
-const VideosList = () => {
+const VideosList = ({ videos, showDeleteModal, showEditVideoModal }) => {
   return (
     <section className="container">
       <div className="search-result">
@@ -10,13 +9,12 @@ const VideosList = () => {
       </div>
 
       <section className="films">
-        {videos.map((video) => 
+        {videos.map(v =>
           <VideoCard
-            key={video.id}
-            posterPath={video.posterPath}
-            title={video.title}
-            year={video.year}
-            genre={video.genre}
+            key={v.id}
+            video={v}
+            showDeleteModal={showDeleteModal}
+            showEditVideoModal={showEditVideoModal}
           />
           )}
         </section>
