@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import MyButton from '../button/MyButton'
+import MyButton from '../button/MyButton';
+import Input from '../input/Input';
 import style from './VideoForm.module.css';
 
 const emptyVideo = {
@@ -42,28 +43,60 @@ const VideoForm = ({ editVideo, creat, showModal }) => {
     setVideo(emptyVideo);
   };
 
+  const handleVideoChange = (key, value) => setVideo({...video, [key]: value})
+
   return (
     <form>
-      <label htmlFor='name'>title</label>
-      <input value={video.title} onChange={e => setVideo({...video, title: e.target.value})} id='name' type='text' placeholder='Enter movie title'/>
-<br />
-      <label>movie url</label>
-      <input value={video.posterPath} onChange={e => setVideo({...video, posterPath: e.target.value})} type='text' placeholder='https://'/>
+      <Input
+        id='name'
+        value={video.title}
+        lable='title'
+        placeholder='Enter movie title'
+        onChange={value => handleVideoChange('title', value)}
+      />
       <br />
-      <label>genre</label>
-      <input value={video.genre} onChange={e => setVideo({...video, genre: e.target.value})} type='text' placeholder='Select Genre'/>
+      <Input
+        id='posterpath'
+        value={video.posterPath}
+        lable='movie url'
+        placeholder='https://'
+        onChange={value => handleVideoChange('posterPath', value)}
+      />
       <br />
-      <label>release date</label>
-      <input value={video.year} onChange={e => setVideo({...video, year: e.target.value})} type='text' placeholder='Select Date'/>
+      <Input
+        id='genre'
+        value={video.genre}
+        lable='genre'
+        placeholder='Select Genre'
+        onChange={value => handleVideoChange('genre', value)}
+      />
       <br />
-      <label>rating</label>
-      <input value={video.rating} onChange={e => setVideo({...video, rating: e.target.value})} type='text' placeholder='7.8'/>
+      <Input
+        id='year'
+        value={video.year}
+        lable='release date'
+        placeholder='Select Date'
+        onChange={value => handleVideoChange('year', value)}
+      />
       <br />
-      <label>runtime</label>
-      <input value={video.runtime} onChange={e => setVideo({...video, runtime: e.target.value})} type='text' placeholder='minutes'/>
+      <Input
+        id='rating'
+        value={video.rating}
+        lable='rating'
+        placeholder='7.8'
+        onChange={value => handleVideoChange('rating', value)}
+      />
       <br />
-      <label>overview</label>
-      <textarea value={video.description} onChange={e => setVideo({...video, description: e.target.value})} placeholder='Movie description'></textarea>
+      <Input
+        id='runtime'
+        value={video.runtime}
+        lable='runtime'
+        placeholder='minutes'
+        onChange={value => handleVideoChange('runtime', value)}
+      />
+      <br />
+      <label htmlFor='overview'>overview</label>
+      <textarea id='overview' value={video.description} onChange={e => setVideo({...video, description: e.target.value})} placeholder='Movie description'></textarea>
       <br />
       <MyButton onClick={reset} className='button__gray-blurred'>
         reset

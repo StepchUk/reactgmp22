@@ -7,28 +7,28 @@ const VideoCard = ({ video, showDeleteModal, showEditVideoModal }) => {
 
   const {posterPath, title, year, genre} = video;
 
-  const [modal, setModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="filmcard">
-      <VideoModal className='videoModalSmall' visible={modal} setVisible={setModal}><br/>
+      <VideoModal className='videoModalSmall' showModal={showModal} setShowModale={setShowModal}><br/>
         <button onClick={() => {
           showEditVideoModal(video, true);
-          setModal(false);
+          setShowModal(false);
         }}>
           edit
         </button><br />
         <button
           onClick={() => {
             showDeleteModal(video, true);
-            setModal(false);
+            setShowModal(false);
           }}
         >
           delete
         </button>
       </VideoModal>
       <div className="card">
-      <button className='showEdit' onClick={() => setModal(true)}>...</button>
+      <button className='showEdit' onClick={() => setShowModal(true)}>...</button>
         <img src={posterPath} />
         <div className="description">
           <span>{title}</span>

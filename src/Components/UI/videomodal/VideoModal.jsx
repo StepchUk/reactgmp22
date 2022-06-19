@@ -2,19 +2,19 @@ import React from 'react';
 import style from './VideoModal.module.css';
 import PropTypes from 'prop-types';
 
-const VideoModal = ({className, title, children, visible, setVisible}) => {
+const VideoModal = ({className, title, children, showModal, setShowModal}) => {
 
   const rootClasses = [style[className]]
 
-  if (visible) {
+  if (showModal) {
     rootClasses.push(style.active)
   }
 
   return (
-    <div className={rootClasses.join(' ')} onClick={() => setVisible(false)}>
+    <div className={rootClasses.join(' ')} onClick={() => setShowModal(false)}>
       <div className={style.videoModalContent} onClick={(e) => e.stopPropagation()}>
         <p>{title}</p>
-        <button style={{cursor: "pointer"}} onClick={() => setVisible(false)}>X</button>
+        <button style={{cursor: "pointer"}} onClick={() => setShowModal(false)}>X</button>
         {children}
       </div>
     </div>
@@ -24,8 +24,8 @@ const VideoModal = ({className, title, children, visible, setVisible}) => {
 VideoModal.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
-  visible: PropTypes.bool,
-  setVisible: PropTypes.func,
+  showModal: PropTypes.bool,
+  setShowModal: PropTypes.func,
 }
 
 export default VideoModal;

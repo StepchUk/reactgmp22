@@ -11,6 +11,7 @@ import VideoForm from './Components/UI/videoform/VideoForm'
 const App = () => {
 
   const [videos, setVideos] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     setVideos(api);
@@ -20,16 +21,14 @@ const App = () => {
     setVideos([...videos, newVideo]);
   }
 
-  const [modal, setModal] = useState(false);
-
   return(
     <>
       <ErrorBoundary>
-        <VidoeModal className='videoModal' title='add movie' visible={modal} setVisible={setModal}>
-          <VideoForm creat={createVideo} showModal={setModal} />
+        <VidoeModal className='videoModal' title='add movie' showModal={showModal} setShowModal={setShowModal}>
+          <VideoForm creat={createVideo} showModal={setShowModal} />
         </VidoeModal>
 
-        <Header showModal={setModal}/>
+        <Header showModal={setShowModal}/>
         <Body videos={videos} setVideos={setVideos} />
       </ErrorBoundary>
       <Footer />

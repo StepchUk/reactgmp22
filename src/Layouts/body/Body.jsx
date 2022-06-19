@@ -8,33 +8,29 @@ import MyButton from '../../Components/UI/button/MyButton'
 
 const Body = ({ videos, setVideos }) => {
 
-  const [videoObject, setVideoObject] = useState();
+  const [videoData, setVideoData] = useState();
   const [editVieoModal, setEditVieoModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [selectedSort, setSelectedSort] = useState('');
+  const [sortByField, setSortByField] = useState('');
 
   const sortVideos = (sort) => {
-    setSelectedSort(sort);
+    setSortByField(sort);
     setVideos([...videos].sort((a, b) => a[sort].localeCompare(b[sort])));
   };
 
   const showEditVideoModal = (video, show) => {
-    setVideoObject(video);
+    setVideoData(video);
     setEditVieoModal(show);
   };
 
   const showDeleteModal = (video, show) => {
-    setVideoObject(video);
+    setVideoData(video);
     setDeleteModal(show);
   };
 
   const editVideo = (video) => {
-    const editedVideos = videos.map(vd => {
-      if (vd.id == video.id) {
-        return video;
-      }
-
-      return vd;
+    const editedVideos = videos.map(current => {
+      return current.id === video.id ? video : current;
     });
 
     setVideos(editedVideos);
@@ -47,24 +43,28 @@ const Body = ({ videos, setVideos }) => {
   
   return(
     <>
-      <VidoeModal className='videoModal' title='edit movie' visible={editVieoModal} setVisible={setEditVieoModal}>
-        <VideoForm editVideo={videoObject} creat={editVideo} showModal={setEditVieoModal} />
+      <VidoeModal className='videoModal' title='edit movie' showModal={editVieoModal} setShowModal={setEditVieoModal}>
+        <VideoForm editVideo={videoData} creat={editVideo} showModal={setEditVieoModal} />
       </VidoeModal>
-      <VidoeModal className='videoModal' title='delete movie' visible={deleteModal} setVisible={setDeleteModal}>
+      <VidoeModal className='videoModal' title='delete movie' showModal={deleteModal} setShowModal={setDeleteModal}>
         <p>Are you sure you want to delete this movie?</p>
-        <MyButton className='button__red' onClick={() => removeVideo(videoObject)}>confirm</MyButton>
+        <MyButton className='button__red' onClick={() => removeVideo(videoData)}>confirm</MyButton>
       </VidoeModal>
       <main className="main">
         <section className="container">
           <div className="sort">
             <GenreFilter />
             <ResultSort 
-              value={selectedSort}
+              value={sortByField}
               onChange={sortVideos}
             />
           </div>
         </section>
-        <VideosList videos={videos} showDeleteModal={showDeleteModal} showEditVideoModal={showEditVideoModal}  />
+        <VideosList
+          videos={videos}
+          showDeleteModal={showDeleteModal}
+          showEditVideoModal={showEditVideoModal}
+        />
       </main>
     </>
   )
