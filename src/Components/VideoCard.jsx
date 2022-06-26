@@ -1,34 +1,45 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import VideoModal from '../Components/UI/videomodal/VideoModal'
-import MyButton from './UI/button/MyButton';
+import Modal from './UI/modal/Modal';
 
-const VideoCard = ({ video, showDeleteModal, showEditVideoModal }) => {
+const VideoCard = ({ video, videoDetail, showEditVideoModal, showDeleteModal }) => {
 
   const {posterPath, title, year, genre} = video;
 
   const [showModal, setShowModal] = useState(false);
 
+  const hideModal = () => {
+    setShowModal(false);
+  }
+
   return (
     <div className="filmcard">
-      <VideoModal className='videoModalSmall' showModal={showModal} setShowModale={setShowModal}><br/>
-        <button onClick={() => {
-          showEditVideoModal(video, true);
-          setShowModal(false);
-        }}>
-          edit
-        </button><br />
-        <button
-          onClick={() => {
-            showDeleteModal(video, true);
-            setShowModal(false);
-          }}
-        >
-          delete
-        </button>
-      </VideoModal>
-      <div className="card">
-      <button className='showEdit' onClick={() => setShowModal(true)}>...</button>
+      {showModal &&
+        <Modal
+          className='videoModalSmall'
+          onModalClose={hideModal}>
+          <button
+            onClick={() => {
+              showEditVideoModal(video);
+              hideModal();
+            }}
+          >
+            edit
+          </button><br />
+          <button
+            onClick={() => {
+              showDeleteModal(video);
+              hideModal();
+            }}
+          >
+            delete
+          </button>
+        </Modal>
+      }
+      <button className='showEdit' onClick={() => {
+        setShowModal(true);
+      }}>...</button>
+      <div className="card" onClick={() => videoDetail(video.id)}>
         <img src={posterPath} />
         <div className="description">
           <span>{title}</span>
@@ -44,7 +55,8 @@ const VideoCard = ({ video, showDeleteModal, showEditVideoModal }) => {
 
 VideoCard.propTypes = {
   video: PropTypes.object,
-  remove: PropTypes.func,
+  onModalClick: PropTypes.func,
+  videoDetail: PropTypes.func,
 }
 
 export default VideoCard

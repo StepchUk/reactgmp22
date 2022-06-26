@@ -10,6 +10,27 @@
     box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1), 0px 2px 10px rgba(0, 0, 0, 0.07), 0px 10px 20px rgba(0, 0, 0, 0.05), 0px 10px 50px rgba(0, 0, 0, 0.05);
 }
 
+.modalHead {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modalHead p {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-size: 40px;
+    line-height: 49px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+}
+
+.modalHead button {
+    cursor: pointer;
+    background-color: #232323;
+    color: #FFF;
+}
+
 .videoModal.active {
     display: flex;
     justify-content: center;
@@ -31,7 +52,7 @@
     position: absolute;
 }
 
-.videoModalContent {
+.modalContent {
     padding: 25px;
     background-color: #232323;
 }

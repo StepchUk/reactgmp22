@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import MyButton from '../button/MyButton';
 import Input from '../input/Input';
-import style from './VideoForm.module.css';
+import style from './VideoFormModal.module.css';
 
 const emptyVideo = {
   title: '',
@@ -14,7 +14,7 @@ const emptyVideo = {
   description: ''
 };
 
-const VideoForm = ({ editVideo, creat, showModal }) => {
+const VideoForm = ({ editVideo, onSubmit, hideModal }) => {
   const [video, setVideo] = useState(emptyVideo);
 
   useEffect(() => {
@@ -27,14 +27,14 @@ const VideoForm = ({ editVideo, creat, showModal }) => {
     e.preventDefault();
 
     const newVideo = {
-      ...video, id: video.id ??= Date.now()
+      ...video
     };
     
-    creat(newVideo);
+    onSubmit(newVideo);
 
     setVideo(emptyVideo);
 
-    showModal(false);
+    hideModal();
   };
 
   const reset = (e) => {
@@ -110,7 +110,7 @@ const VideoForm = ({ editVideo, creat, showModal }) => {
 };
 
 VideoForm.propTypes = {
-  create: PropTypes.func,
+  onSubmit: PropTypes.func,
   hideModal: PropTypes.func,
 }
 
