@@ -15,10 +15,6 @@ const Body = ({ videos, setVideos, handleVideoClick, showEditVideoModal, showDel
     setVideos([...videos].sort(videoSorter));
   }, [sortByField]);
 
-  const sortVideos = (sort) => {
-    setSortByField(sort);
-  };
-
   return(
     <>
       <main className="main">
@@ -27,7 +23,7 @@ const Body = ({ videos, setVideos, handleVideoClick, showEditVideoModal, showDel
             <GenreFilter />
             <ResultSort 
               value={sortByField}
-              onChange={sortVideos}
+              onChange={setSortByField}
             />
           </div>
         </section>
