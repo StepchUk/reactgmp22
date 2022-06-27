@@ -71,7 +71,7 @@ const App = () => {
 
         {showVideoDetails
           ?
-            <VideoDetails video={videoDetail} hideVideoDetails={hideVideoDetails} />
+            <VideoDetails video={videoDetail} onVideoDetailClose={hideVideoDetails} />
           :
             <Header onAddClick={modal.showAdd}/>
         }
@@ -80,7 +80,7 @@ const App = () => {
           setVideos={setVideos}
           showEditVideoModal={modal.showEdit}
           showDeleteModal={modal.showConfirm}
-          handleVideoClick={handleVideoClick}
+          onVideoDetailClick={handleVideoClick}
         />
       </ErrorBoundary>
       <Footer />

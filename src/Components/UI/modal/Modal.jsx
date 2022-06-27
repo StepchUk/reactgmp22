@@ -11,11 +11,11 @@ const Modal = ({className, title, text, children, onModalClose}) => {
   }
 
   return (
-    <div className={rootClasses.join(' ')} onClick={() => onModalClose()}>
+    <div className={rootClasses.join(' ')} onClick={onModalClose}>
       <div className={style.modalContent} onClick={(e) => e.stopPropagation()}>
         <div className={style.modalHead}>
           <p>{title}</p>
-          <button onClick={() => onModalClose()}>X</button>
+          <button onClick={onModalClose}>X</button>
         </div>
         <p>{text}</p>
         {children}

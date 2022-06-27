@@ -1,7 +1,7 @@
 import React from 'react'
 import VideoCard from './VideoCard'
 
-const VideosList = ({ videos, showDeleteModal, showEditVideoModal, handleVideoClick }) => {
+const VideosList = ({ videos, showDeleteModal, showEditVideoModal, onVideoDetailClick }) => {
   return (
     <section className="container">
       <div className="search-result">
@@ -15,7 +15,7 @@ const VideosList = ({ videos, showDeleteModal, showEditVideoModal, handleVideoCl
             video={video}
             showDeleteModal={showDeleteModal}
             showEditVideoModal={showEditVideoModal}
-            handleVideoClick={handleVideoClick}
+            onVideoDetailClick={onVideoDetailClick}
           />
           )}
         </section>
