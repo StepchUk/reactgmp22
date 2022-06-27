@@ -31,9 +31,9 @@ const App = () => {
     setVideos([...videos, newVideo]);
   };
 
-  const handleVideoClick = (id) => {
+  const handleVideoClick = useCallback((id) => {
     setVideoDetail(videos[id - 1]);
-  };
+  }, [videos]);
 
   const editVideo = (video) => {
     const editedVideos = videos.map(current => current.id === video.id ? video : current);
