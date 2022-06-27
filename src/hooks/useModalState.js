@@ -20,10 +20,8 @@ const useModalState = () => {
   const showEdit = (data) => setModal({ type: ModalTypes.EDIT, data });
   const showConfirm = (data) => setModal({ type: ModalTypes.CONFIRM, data });
 
-  const data = modal.data;
-
   return {
-    data,
+    data: modal.data,
     isAddType,
     isEditType,
     isConfirmType,
