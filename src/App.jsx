@@ -29,7 +29,7 @@ const App = () => {
     setVideos([...videos, newVideo]);
   };
 
-  const videoDetail = (id) => {
+  const handleVideoClick = (id) => {
     console.log("render");
     setVideoDetaill(videos[id - 1]);
     setIsVideoDetail(true);
@@ -82,7 +82,7 @@ const App = () => {
           setVideos={setVideos}
           showEditVideoModal={modal.showEdit}
           showDeleteModal={modal.showConfirm}
-          videoDetail={videoDetail}
+          handleVideoClick={handleVideoClick}
         />
       </ErrorBoundary>
       <Footer />

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Modal from './UI/modal/Modal';
 
-const VideoCard = ({ video, videoDetail, showEditVideoModal, showDeleteModal }) => {
+const VideoCard = ({ video, handleVideoClick, showEditVideoModal, showDeleteModal }) => {
 
   const {posterPath, title, year, genre} = video;
 
@@ -39,7 +39,7 @@ const VideoCard = ({ video, videoDetail, showEditVideoModal, showDeleteModal }) 
       <button className='showEdit' onClick={() => {
         setShowModal(true);
       }}>...</button>
-      <div className="card" onClick={() => videoDetail(video.id)}>
+      <div className="card" onClick={() => handleVideoClick(video.id)}>
         <img src={posterPath} />
         <div className="description">
           <span>{title}</span>

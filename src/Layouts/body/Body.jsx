@@ -5,7 +5,7 @@ import VideosList from "../../Components/VideosList";
 
 const getVideoSorter = (field) => (a, b) => a[field].localeCompare(b[field]);
 
-const Body = ({ videos, setVideos, videoDetail, showEditVideoModal, showDeleteModal }) => {
+const Body = ({ videos, setVideos, handleVideoClick, showEditVideoModal, showDeleteModal }) => {
 
   const [sortByField, setSortByField] = useState('');
 
@@ -35,7 +35,7 @@ const Body = ({ videos, setVideos, videoDetail, showEditVideoModal, showDeleteMo
           videos={videos}
           showEditVideoModal={showEditVideoModal}
           showDeleteModal={showDeleteModal}
-          videoDetail={videoDetail}
+          handleVideoClick={handleVideoClick}
         />
       </main>
     </>
