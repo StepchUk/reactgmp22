@@ -14,8 +14,10 @@ import useModalState from './hooks/useModalState';
 const App = () => {
 
   const [videos, setVideos] = useState([]);
-  const [isVideoDetail, setIsVideoDetail] = useState(false);
-  const [videoDetaill, setVideoDetaill] = useState();
+  const [videoDetail, setVideoDetail] = useState();
+
+  const showVideoDetails = !!videoDetail;
+  const hideVideoDetails = () => setVideoDetail(null);
 
   const modal = useModalState();
 
@@ -30,15 +32,11 @@ const App = () => {
   };
 
   const handleVideoClick = (id) => {
-    console.log("render");
-    setVideoDetaill(videos[id - 1]);
-    setIsVideoDetail(true);
+    setVideoDetail(videos[id - 1]);
   };
 
   const editVideo = (video) => {
-    const editedVideos = videos.map(current => {
-      return current.id === video.id ? video : current;
-    });
+    const editedVideos = videos.map(current => current.id === video.id ? video : current);
 
     setVideos(editedVideos);
   }
@@ -71,9 +69,9 @@ const App = () => {
           </Modal>
         }
 
-        {isVideoDetail
+        {showVideoDetails
           ?
-            <VideoDetails video={videoDetaill} setIsVideoDetail={setIsVideoDetail} />
+            <VideoDetails video={videoDetail} hideVideoDetails={hideVideoDetails} />
           :
             <Header onAddClick={modal.showAdd}/>
         }

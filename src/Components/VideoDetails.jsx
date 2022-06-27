@@ -10,7 +10,7 @@ const duration = (minutes) => {
   return `${hour} ${minut.toString().padStart(2, '0')}min`
 }
 
-const VideoDetails = ({ video, setIsVideoDetail }) => {
+const VideoDetails = ({ video, hideVideoDetails }) => {
 
   const { posterPath, title, year, genre, rating, runtime, description } = video;
   
@@ -24,7 +24,7 @@ const VideoDetails = ({ video, setIsVideoDetail }) => {
   return (
     <div className="details">
       <div className='container'>
-        <Logo actionType='search' setIsVideoDetail={setIsVideoDetail} />
+        <Logo actionType='search' hideVideoDetails={hideVideoDetails} />
         <div className="detail">
           <img src={posterPath} />
           <div className='detail__container'>

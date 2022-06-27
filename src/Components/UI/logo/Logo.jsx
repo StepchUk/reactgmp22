@@ -8,7 +8,7 @@ const TYPE_OF_ACTION = {
   SEARCH: 'search'
 };
 
-const Logo = ({ actionType, onAddClick, setIsVideoDetail }) => {
+const Logo = ({ actionType, onAddClick, hideVideoDetails }) => {
   return (
     <>
       <div className={style.inner}>
@@ -19,7 +19,7 @@ const Logo = ({ actionType, onAddClick, setIsVideoDetail }) => {
           <MyButton className="button__gray-blurred" onClick={() => onAddClick()}>+ add movie</MyButton>
         }
         {TYPE_OF_ACTION.SEARCH === actionType && 
-          <img onClick={() => setIsVideoDetail(false)} src={searchIcon} />
+          <img onClick={() => hideVideoDetails()} src={searchIcon} />
         }
       </div>
     </>
