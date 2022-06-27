@@ -7,7 +7,7 @@ const getVideoSorter = (field) => (a, b) => a[field].localeCompare(b[field]);
 
 const Body = ({ videos, setVideos, handleVideoClick, showEditVideoModal, showDeleteModal }) => {
 
-  const [sortByField, setSortByField] = useState('');
+  const [sortByField, setSortByField] = useState('year');
 
   useEffect(() => {
     const videoSorter = getVideoSorter(sortByField);
