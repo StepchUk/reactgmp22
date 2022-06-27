@@ -1,16 +1,12 @@
-import React from "react"
-import MyButton from "../../Components/UI/button/MyButton"
+import React, { useState } from 'react';
+import Logo from '../../Components/UI/logo/Logo';
+import MyButton from '../../Components/UI/button/MyButton';
 
-const Header = ({ showModal }) => {
+const Header = ({ onAddClick }) => {
   return(
     <header className="header">
       <div className="container">
-        <div className="header__inner">
-          <div className="header__logo">
-            <b>netflix</b>roulette
-          </div>
-          <MyButton className="button__gray-blurred" onClick={() => showModal(true)}>+ add movie</MyButton>
-        </div>
+        <Logo actionType='add' onAddClick={onAddClick} />
         <div className="info">
           <div className="header__intro">
             find your movie

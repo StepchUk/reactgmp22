@@ -1,7 +1,7 @@
 import React from 'react'
 import VideoCard from './VideoCard'
 
-const VideosList = ({ videos, showDeleteModal, showEditVideoModal }) => {
+const VideosList = ({ videos, showDeleteModal, showEditVideoModal, onVideoDetailClick }) => {
   return (
     <section className="container">
       <div className="search-result">
@@ -9,12 +9,13 @@ const VideosList = ({ videos, showDeleteModal, showEditVideoModal }) => {
       </div>
 
       <section className="films">
-        {videos.map(v =>
+        {videos.map(video =>
           <VideoCard
-            key={v.id}
-            video={v}
+            key={video.id}
+            video={video}
             showDeleteModal={showDeleteModal}
             showEditVideoModal={showEditVideoModal}
+            onVideoDetailClick={onVideoDetailClick}
           />
           )}
         </section>
