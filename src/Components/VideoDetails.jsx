@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Logo from './UI/logo/Logo';
 
-const mytime = (minutes) => {
+const duration = (minutes) => {
   let hours = Math.floor(minutes / 60);
   let minut = minutes % 60;
 
@@ -35,7 +35,7 @@ const VideoDetails = ({ video, setIsVideoDetail }) => {
             <p className='detail__genre'>{genre.join(', ')}</p>
             <div className='detail__year-runtime'>
               <p>{year}</p>
-              <p className='detail__runtime'>{mytime(runtime)}</p>
+              <p className='detail__runtime'>{duration(runtime)}</p>
             </div>
             <p className='detail__description'>{description}</p>
           </div>
