@@ -1,6 +1,15 @@
 import React, { useEffect } from 'react';
 import Logo from './UI/logo/Logo';
 
+const mytime = (minutes) => {
+  let hours = Math.floor(minutes / 60);
+  let minut = minutes % 60;
+
+  let hour = hours > 0 ? hours + 'h' : '';
+
+  return `${hour} ${minut.toString().padStart(2, '0')}min`
+}
+
 const VideoDetails = ({ video, setIsVideoDetail }) => {
 
   const { posterPath, title, year, genre, rating, runtime, description } = video;
@@ -11,15 +20,6 @@ const VideoDetails = ({ video, setIsVideoDetail }) => {
         behavior: "smooth"
     });
   }, [video]);
-
-  const mytime = (minutes) => {
-    let hours = Math.floor(minutes / 60);
-    let minut = minutes % 60;
-
-    let hour = hours > 0 ? hours + 'h' : '';
-
-    return `${hour} ${minut.toString().padStart(2, '0')}min`
-  }
 
   return (
     <div className="details">
