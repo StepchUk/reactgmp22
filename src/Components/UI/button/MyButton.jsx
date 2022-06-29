@@ -1,18 +1,18 @@
-import React from 'react'
-import style from './MyButton.module.css'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import style from './MyButton.module.css';
 
-const MyButton = ({children, className, ...props}) => {
-  return(
-    <button className={style[className]} {...props}>
+function MyButton({ children, className, ...props }) {
+  return (
+    <button type="submit" className={style[className]} {...props}>
       {children}
     </button>
-  )
+  );
 }
 
 MyButton.propTypes = {
   children: PropTypes.node,
-  className: PropTypes.string
-}
+  className: PropTypes.string,
+};
 
-export default MyButton
+export default MyButton;

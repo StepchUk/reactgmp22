@@ -1,23 +1,28 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Modal from './UI/modal/Modal';
 
-const VideoCard = ({ video, onVideoDetailClick, showEditVideoModal, showDeleteModal }) => {
-
-  const {posterPath, title, year, genre} = video;
+function VideoCard({
+  video, onVideoDetailClick, showEditVideoModal, showDeleteModal,
+}) {
+  const {
+    posterPath, title, year, genre,
+  } = video;
 
   const [showMenu, setShowMenu] = useState(false);
 
   const hideModal = () => {
     setShowMenu(false);
-  }
+  };
 
   return (
     <div className="filmcard">
-      {showMenu &&
+      {showMenu
+        && (
         <Modal
-          className='videoModalSmall'
-          onModalClose={hideModal}>
+          className="videoModalSmall"
+          onModalClose={hideModal}
+        >
           <button
             onClick={() => {
               showEditVideoModal(video);
@@ -25,7 +30,8 @@ const VideoCard = ({ video, onVideoDetailClick, showEditVideoModal, showDeleteMo
             }}
           >
             edit
-          </button><br />
+          </button>
+          <br />
           <button
             onClick={() => {
               showDeleteModal(video);
@@ -35,10 +41,15 @@ const VideoCard = ({ video, onVideoDetailClick, showEditVideoModal, showDeleteMo
             delete
           </button>
         </Modal>
-      }
-      <button className='showEdit' onClick={() => {
-        setShowMenu(true);
-      }}>...</button>
+        )}
+      <button
+        className="showEdit"
+        onClick={() => {
+          setShowMenu(true);
+        }}
+      >
+        ...
+      </button>
       <div className="card" onClick={() => onVideoDetailClick(video.id)}>
         <img src={posterPath} />
         <div className="description">
@@ -47,16 +58,16 @@ const VideoCard = ({ video, onVideoDetailClick, showEditVideoModal, showDeleteMo
         </div>
       </div>
       <div className="genre-list">
-        {genre.join(", ")}
+        {genre.join(', ')}
       </div>
     </div>
-  )
+  );
 }
 
 VideoCard.propTypes = {
   video: PropTypes.object,
   onModalClick: PropTypes.func,
   videoDetail: PropTypes.func,
-}
+};
 
-export default VideoCard
+export default VideoCard;
