@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import Logo from '../../Components/UI/logo/Logo';
 import MyButton from '../../Components/UI/button/MyButton';
 
-const Header = ({ onAddClick }) => {
-  return(
+function Header({ onAddClick }) {
+  return (
     <header className="header">
       <div className="container">
-        <Logo actionType='add' onAddClick={onAddClick} />
+        <Logo actionType="add" onAddClick={onAddClick} />
         <div className="info">
           <div className="header__intro">
             find your movie
@@ -22,7 +22,7 @@ const Header = ({ onAddClick }) => {
         </div>
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

@@ -1,15 +1,19 @@
-import React from 'react'
-import VideoCard from './VideoCard'
+import React from 'react';
+import VideoCard from './VideoCard';
 
-const VideosList = ({ videos, showDeleteModal, showEditVideoModal, onVideoDetailClick }) => {
+function VideosList({
+  videos, showDeleteModal, showEditVideoModal, onVideoDetailClick,
+}) {
   return (
     <section className="container">
       <div className="search-result">
-        {videos.length} widies found
+        {videos.length}
+        {' '}
+        widies found
       </div>
 
       <section className="films">
-        {videos.map(video =>
+        {videos.map((video) => (
           <VideoCard
             key={video.id}
             video={video}
@@ -17,10 +21,10 @@ const VideosList = ({ videos, showDeleteModal, showEditVideoModal, onVideoDetail
             showEditVideoModal={showEditVideoModal}
             onVideoDetailClick={onVideoDetailClick}
           />
-          )}
-        </section>
+        ))}
+      </section>
     </section>
-  )
+  );
 }
 
-export default VideosList
+export default VideosList;

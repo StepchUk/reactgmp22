@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const ModalTypes = {
   ADD: 'add',
   EDIT: 'edit',
-  CONFIRM: 'confirm'
+  CONFIRM: 'confirm',
 };
 
 const INIT_STATE = { type: null, data: null };
@@ -28,7 +28,7 @@ const useModalState = () => {
     showAdd,
     showEdit,
     showConfirm,
-    close
+    close,
   };
 };
 

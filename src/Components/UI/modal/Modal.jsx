@@ -1,13 +1,14 @@
 import React from 'react';
-import style from './Modal.module.css';
 import PropTypes from 'prop-types';
+import style from './Modal.module.css';
 
-const Modal = ({className, title, text, children, onModalClose}) => {
-
-  const rootClasses = [style[className]]
+function Modal({
+  className, title, text, children, onModalClose,
+}) {
+  const rootClasses = [style[className]];
 
   if (onModalClose) {
-    rootClasses.push(style.active)
+    rootClasses.push(style.active);
   }
 
   return (
@@ -22,12 +23,12 @@ const Modal = ({className, title, text, children, onModalClose}) => {
       </div>
     </div>
   );
-};
+}
 
 Modal.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
   onModalClose: PropTypes.func,
-}
+};
 
 export default Modal;
