@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import DefaultPropTypes from '../Common/global_prop_types';
 import Modal from './UI/modal/Modal';
 
 function VideoCard({
@@ -24,6 +25,7 @@ function VideoCard({
           onModalClose={hideModal}
         >
           <button
+            type="submit"
             onClick={() => {
               showEditVideoModal(video);
               hideModal();
@@ -33,6 +35,7 @@ function VideoCard({
           </button>
           <br />
           <button
+            type="submit"
             onClick={() => {
               showDeleteModal(video);
               hideModal();
@@ -43,6 +46,7 @@ function VideoCard({
         </Modal>
         )}
       <button
+        type="submit"
         className="showEdit"
         onClick={() => {
           setShowMenu(true);
@@ -51,7 +55,7 @@ function VideoCard({
         ...
       </button>
       <div className="card" onClick={() => onVideoDetailClick(video.id)}>
-        <img src={posterPath} />
+        <img src={posterPath} alt="close" />
         <div className="description">
           <span>{title}</span>
           <div className="year">{year}</div>
@@ -65,9 +69,10 @@ function VideoCard({
 }
 
 VideoCard.propTypes = {
-  video: PropTypes.object,
-  onModalClick: PropTypes.func,
-  videoDetail: PropTypes.func,
+  video: PropTypes.shape(DefaultPropTypes.video).isRequired,
+  onVideoDetailClick: PropTypes.func.isRequired,
+  showEditVideoModal: PropTypes.func.isRequired,
+  showDeleteModal: PropTypes.func.isRequired,
 };
 
 export default VideoCard;

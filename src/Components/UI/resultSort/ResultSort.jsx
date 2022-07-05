@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SORT_TYPE = ['year', 'title', 'rating', 'runtime'];
 
@@ -17,5 +18,10 @@ function ResultSort({ value, onChange }) {
     </div>
   );
 }
+
+ResultSort.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default ResultSort;

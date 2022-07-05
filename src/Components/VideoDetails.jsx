@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Logo from './UI/logo/Logo';
 
 const duration = (minutes) => {
@@ -27,7 +28,7 @@ function VideoDetails({ video, onVideoDetailClose }) {
       <div className="container">
         <Logo actionType="search" hideVideoDetails={onVideoDetailClose} />
         <div className="detail">
-          <img src={posterPath} />
+          <img src={posterPath} alt={title} />
           <div className="detail__container">
             <div className="detail__title">
               <p>{title}</p>
@@ -45,5 +46,10 @@ function VideoDetails({ video, onVideoDetailClose }) {
     </div>
   );
 }
+
+VideoDetails.propTypes = {
+  video: PropTypes.objectOf([PropTypes.object]).isRequired,
+  onVideoDetailClose: PropTypes.func.isRequired,
+};
 
 export default VideoDetails;

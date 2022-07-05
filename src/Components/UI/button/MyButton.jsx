@@ -11,8 +11,8 @@ function MyButton({ children, className, ...props }) {
 }
 
 MyButton.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string.isRequired,
 };
 
 export default MyButton;

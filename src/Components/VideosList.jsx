@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import DefaultPropTypes from '../Common/global_prop_types';
 import VideoCard from './VideoCard';
 
 function VideosList({
@@ -26,5 +28,12 @@ function VideosList({
     </section>
   );
 }
+
+VideosList.propTypes = {
+  videos: PropTypes.arrayOf(PropTypes.shape(DefaultPropTypes.video)).isRequired,
+  showDeleteModal: PropTypes.func.isRequired,
+  showEditVideoModal: PropTypes.func.isRequired,
+  onVideoDetailClick: PropTypes.func.isRequired,
+};
 
 export default VideosList;

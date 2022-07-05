@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import DefaultPropTypes from '../../Common/global_prop_types';
 import GenreFilter from '../../Components/UI/genreFilter/GenreFilter';
 import ResultSort from '../../Components/UI/resultSort/ResultSort';
 import VideosList from '../../Components/VideosList';
@@ -36,5 +38,13 @@ function Body({
     </main>
   );
 }
+
+Body.propTypes = {
+  videos: PropTypes.arrayOf(PropTypes.shape(DefaultPropTypes.video)).isRequired,
+  setVideos: PropTypes.func.isRequired,
+  showDeleteModal: PropTypes.func.isRequired,
+  showEditVideoModal: PropTypes.func.isRequired,
+  onVideoDetailClick: PropTypes.func.isRequired,
+};
 
 export default Body;

@@ -13,7 +13,7 @@ export const api = [
     year: '2004',
     genre: ['Action & Adventure'],
     rating: '6.5',
-    runtime: '154',
+    runtime: 154,
     description: 'Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra',
   },
   {
@@ -27,7 +27,7 @@ export const api = [
       'Music',
     ],
     rating: '4.5',
-    runtime: '85',
+    runtime: 85,
     description: 'Bohemian Rhapsody',
   },
   {
@@ -39,7 +39,7 @@ export const api = [
       'Oscar winning Movie',
     ],
     rating: '8',
-    runtime: '120',
+    runtime: 12,
     description: 'Kill Bill: Vol 2',
   },
   {
@@ -51,7 +51,7 @@ export const api = [
       'Action & Adventure',
     ],
     rating: '8.5',
-    runtime: '150',
+    runtime: 150,
     description: 'Avengers: War of Infinity',
   },
   {
@@ -63,7 +63,7 @@ export const api = [
       'Action & Adventure',
     ],
     rating: '5.5',
-    runtime: '50',
+    runtime: 50,
     description: 'Inception',
   },
   {
@@ -75,7 +75,7 @@ export const api = [
       'Oscar winning Movie',
     ],
     rating: '10',
-    runtime: '60',
+    runtime: 60,
     description: 'Reservoir dogs',
   },
 ];
