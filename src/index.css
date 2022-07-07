@@ -93,6 +93,7 @@ body {
 
 .detail img {
   width: 323px;
+  height: 455px;
 }
 
 .detail__container {
@@ -129,6 +130,7 @@ body {
   text-transform: uppercase;
   border-radius: 50%;
   width: 50px;
+  height: 51px;
 }
 
 .detail__genre {
@@ -217,7 +219,8 @@ body {
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  /* identical to box height */
+  background-color: #232323;
+  cursor: pointer;
 
   text-transform: uppercase;
 
