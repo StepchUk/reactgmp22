@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { getYear } from '../Services/Utils';
 import Logo from './UI/logo/Logo';
+import defaultVideo from '../Assets/Images/No-Image-Placeholder.png';
 
 const duration = (minutes) => {
   const hours = Math.floor(minutes / 60);
@@ -13,7 +15,7 @@ const duration = (minutes) => {
 
 function VideoDetails({ video, onVideoDetailClose }) {
   const {
-    posterPath, title, year, genre, rating, runtime, description,
+    posterPath, title, releaseDate, genres, voteAverage, runtime, overview,
   } = video;
 
   useEffect(() => {
@@ -28,18 +30,25 @@ function VideoDetails({ video, onVideoDetailClose }) {
       <div className="container">
         <Logo actionType="search" hideVideoDetails={onVideoDetailClose} />
         <div className="detail">
-          <img src={posterPath} alt={title} />
+          <img
+            src={posterPath}
+            onError={(e) => {
+              e.target.onError = null;
+              e.target.src = defaultVideo;
+            }}
+            alt={title}
+          />
           <div className="detail__container">
             <div className="detail__title">
               <p>{title}</p>
-              <p className="detail__rate">{rating}</p>
+              <p className="detail__rate">{voteAverage}</p>
             </div>
-            <p className="detail__genre">{genre.join(', ')}</p>
+            <p className="detail__genre">{genres.join(', ')}</p>
             <div className="detail__year-runtime">
-              <p>{year}</p>
-              <p className="detail__runtime">{duration(runtime)}</p>
+              <p>{getYear(releaseDate)}</p>
+              {runtime && <p className="detail__runtime">{duration(runtime)}</p>}
             </div>
-            <p className="detail__description">{description}</p>
+            <p className="detail__description">{overview}</p>
           </div>
         </div>
       </div>
@@ -48,7 +57,7 @@ function VideoDetails({ video, onVideoDetailClose }) {
 }
 
 VideoDetails.propTypes = {
-  video: PropTypes.objectOf([PropTypes.object]).isRequired,
+  video: PropTypes.oneOfType([PropTypes.object]).isRequired,
   onVideoDetailClose: PropTypes.func.isRequired,
 };
 

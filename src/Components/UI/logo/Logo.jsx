@@ -25,12 +25,13 @@ function Logo({ actionType, onAddClick, hideVideoDetails }) {
 }
 
 Logo.defaultProps = {
+  onAddClick: null,
   hideVideoDetails: null,
 };
 
 Logo.propTypes = {
   actionType: PropTypes.string.isRequired,
-  onAddClick: PropTypes.func.isRequired,
+  onAddClick: PropTypes.func,
   hideVideoDetails: PropTypes.func,
 };
 
