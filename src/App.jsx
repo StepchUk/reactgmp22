@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Body from './Layouts/body/Body';
 import Footer from './Layouts/footer/Footer';
 import Header from './Layouts/header/Header';
 import ErrorBoundary from './Components/ErrorBoundary';
-import { api } from './API/PostService';
-
 import Modal from './Components/UI/modal/Modal';
 import VideoFormModal from './Components/UI/videoformmodal/VideoFormModal';
 import VideoDetails from './Components/VideoDetails';
@@ -12,7 +11,7 @@ import MyButton from './Components/UI/button/MyButton';
 import useModalState from './hooks/useModalState';
 
 function App() {
-  const [videos, setVideos] = useState([]);
+  const videos = useSelector((state) => state.videos);
   const [videoDetail, setVideoDetail] = useState();
 
   const showVideoDetails = !!videoDetail;
@@ -20,29 +19,25 @@ function App() {
 
   const modal = useModalState();
 
-  useEffect(() => {
-    setVideos(api);
-  }, []);
+  // const createVideo = (newVideo) => {
+  //   newVideo.id = videos.length + 1;
 
-  const createVideo = (newVideo) => {
-    newVideo.id = videos.length + 1;
-
-    setVideos([...videos, newVideo]);
-  };
+  //   setVideos([...videos, newVideo]);
+  // };
 
   const handleVideoClick = useCallback((id) => {
-    setVideoDetail(videos[id - 1]);
+    setVideoDetail(videos.find((video) => video.id === id));
   }, [videos]);
 
-  const editVideo = (video) => {
-    const editedVideos = videos.map((current) => (current.id === video.id ? video : current));
+  // const editVideo = (video) => {
+  //   const editedVideos = videos.map((current) => (current.id === video.id ? video : current));
 
-    setVideos(editedVideos);
-  };
+  //   setVideos(editedVideos);
+  // };
 
-  const removeVideo = (video) => {
-    setVideos(videos.filter((v) => v.id !== video.id));
-  };
+  // const removeVideo = (video) => {
+  //   setVideos(videos.filter((v) => v.id !== video.id));
+  // };
 
   return (
     <>
@@ -50,13 +45,15 @@ function App() {
         {modal.isAddType
          && (
          <Modal className="videoModal" title="add movie" onModalClose={modal.close}>
-           <VideoFormModal onSubmit={createVideo} hideModal={modal.close} />
+           <VideoFormModal hideModal={modal.close} />
+           {/* onSubmit={createVideo} */}
          </Modal>
          )}
         {modal.isEditType
           && (
           <Modal className="videoModal" title="edit movie" onModalClose={modal.close}>
-            <VideoFormModal editVideo={modal.data} onSubmit={editVideo} hideModal={modal.close} />
+            <VideoFormModal editVideo={modal.data} hideModal={modal.close} />
+            {/* onSubmit={editVideo} */}
           </Modal>
           )}
         {modal.isConfirmType
@@ -67,7 +64,8 @@ function App() {
             text="Are you sure you want to delete this movie?"
             onModalClose={modal.close}
           >
-            <MyButton className="button__red" onClick={() => { removeVideo(modal.data); modal.close(); }}>confirm</MyButton>
+            <MyButton className="button__red">confirm</MyButton>
+            {/* onClick={() => { removeVideo(modal.data); modal.close(); }} */}
           </Modal>
           )}
 
@@ -75,8 +73,6 @@ function App() {
           ? <VideoDetails video={videoDetail} onVideoDetailClose={hideVideoDetails} />
           : <Header onAddClick={modal.showAdd} />}
         <Body
-          videos={videos}
-          setVideos={setVideos}
           showEditVideoModal={modal.showEdit}
           showDeleteModal={modal.showConfirm}
           onVideoDetailClick={handleVideoClick}
