@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
 import Body from './Layouts/body/Body';
 import Footer from './Layouts/footer/Footer';
 import Header from './Layouts/header/Header';
@@ -9,9 +8,10 @@ import VideoFormModal from './Components/UI/videoformmodal/VideoFormModal';
 import VideoDetails from './Components/VideoDetails';
 import MyButton from './Components/UI/button/MyButton';
 import useModalState from './hooks/useModalState';
+import { useVideoSelector } from './Services/Selectors/MoviesSelectors';
 
 function App() {
-  const videos = useSelector((state) => state.videos);
+  const videos = useVideoSelector();
   const [videoDetail, setVideoDetail] = useState();
 
   const showVideoDetails = !!videoDetail;
@@ -19,25 +19,9 @@ function App() {
 
   const modal = useModalState();
 
-  // const createVideo = (newVideo) => {
-  //   newVideo.id = videos.length + 1;
-
-  //   setVideos([...videos, newVideo]);
-  // };
-
   const handleVideoClick = useCallback((id) => {
     setVideoDetail(videos.find((video) => video.id === id));
   }, [videos]);
-
-  // const editVideo = (video) => {
-  //   const editedVideos = videos.map((current) => (current.id === video.id ? video : current));
-
-  //   setVideos(editedVideos);
-  // };
-
-  // const removeVideo = (video) => {
-  //   setVideos(videos.filter((v) => v.id !== video.id));
-  // };
 
   return (
     <>
@@ -46,14 +30,12 @@ function App() {
          && (
          <Modal className="videoModal" title="add movie" onModalClose={modal.close}>
            <VideoFormModal hideModal={modal.close} />
-           {/* onSubmit={createVideo} */}
          </Modal>
          )}
         {modal.isEditType
           && (
           <Modal className="videoModal" title="edit movie" onModalClose={modal.close}>
             <VideoFormModal editVideo={modal.data} hideModal={modal.close} />
-            {/* onSubmit={editVideo} */}
           </Modal>
           )}
         {modal.isConfirmType
@@ -65,7 +47,6 @@ function App() {
             onModalClose={modal.close}
           >
             <MyButton className="button__red">confirm</MyButton>
-            {/* onClick={() => { removeVideo(modal.data); modal.close(); }} */}
           </Modal>
           )}
 

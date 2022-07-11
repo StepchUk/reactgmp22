@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import reduser from '../Reducers';
+import movieReducer from '../Reducers/MoviesReducer';
 
 export default configureStore({
-  reducer: reduser,
+  reducer: movieReducer,
 });

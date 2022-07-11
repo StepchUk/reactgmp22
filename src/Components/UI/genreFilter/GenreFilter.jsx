@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchVideosFilterByGenres } from '../../../Services/Actions/AsyncActions';
+import { fetchVideosFilterByGenres } from '../../../Services/Handlers/AsyncActionsHendlers';
 
 const GENRE = ['all', 'documentary', 'comedy', 'horror', 'crime'];
 

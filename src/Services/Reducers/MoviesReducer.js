@@ -1,5 +1,5 @@
-import { toCamelCase } from '../Utils';
-import { FETCH_VIDEOS } from '../Constants';
+import { toCamelCase } from '../Utils/utils';
+import { FETCH_VIDEOS } from '../Constants/ActionTypes';
 
 const defaultState = {
   videos: [],
@@ -8,7 +8,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_VIDEOS:
-      return { ...state, videos: [...toCamelCase(action.payload.data)] };
+      return { ...state, videos: toCamelCase(action.payload.data) };
     default:
       return state;
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchVideosSortBy } from '../../../Services/Actions/AsyncActions';
+import { fetchVideosSortBy } from '../../../Services/Handlers/AsyncActionsHendlers';
 
 const SORT_TYPE = ['release_date', 'vote_average'];
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { getYear } from '../Services/Utils';
+import { getYear } from '../Services/Utils/utils';
 import DefaultPropTypes from '../Common/global_prop_types';
 import Modal from './UI/modal/Modal';
 import defaultVideo from '../Assets/Images/No-Image-Placeholder.png';

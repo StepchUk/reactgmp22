@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchVideosFromServer } from '../Services/Actions/AsyncActions';
+import { fetchVideosFromServer } from '../Services/Handlers/AsyncActionsHendlers';
 import VideoCard from './VideoCard';
 
 function VideosList({
