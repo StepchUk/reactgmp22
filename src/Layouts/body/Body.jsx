@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GenreFilter from '../../Components/UI/genreFilter/GenreFilter';
-import ResultSort from '../../Components/UI/resultSort/ResultSort';
 import VideosList from '../../Components/VideosList';
+import MoviesFilters from '../../Components/UI/moviesFilters/MoviesFilters';
 
 function Body({
   onVideoDetailClick, showEditVideoModal, showDeleteModal,
@@ -10,10 +9,7 @@ function Body({
   return (
     <main className="main">
       <section className="container">
-        <div className="sort">
-          <GenreFilter />
-          <ResultSort />
-        </div>
+        <MoviesFilters />
       </section>
       <VideosList
         showEditVideoModal={showEditVideoModal}

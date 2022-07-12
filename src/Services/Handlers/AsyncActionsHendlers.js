@@ -1,23 +1,19 @@
 import { REMOTE_HOST } from '../../Config/config';
 import { fetchVideosAction } from '../Actions/MoviesActions';
 
+const DEFAULT_SORTBY = 'release_date';
+const DEFAULT_GENRE = '';
+
 const fetchUrl = (url, dispatch) => {
   fetch(url)
     .then((response) => response.json())
     .then((json) => dispatch(fetchVideosAction(json)));
 };
 
-export const fetchVideosFromServer = () => (dispatch) => {
-  const url = `${REMOTE_HOST}movies?sortBy=release_date&sortOrder=desc`;
-  fetchUrl(url, dispatch);
-};
-
-export const fetchVideosSortBy = (field) => (dispatch) => {
-  const url = `${REMOTE_HOST}movies?sortBy=${field}&sortOrder=desc`;
-  fetchUrl(url, dispatch);
-};
-
-export const fetchVideosFilterByGenres = (genre) => (dispatch) => {
-  const url = genre === 'all' ? `${REMOTE_HOST}movies?sortBy=release_date&sortOrder=desc` : `${REMOTE_HOST}movies?filter=${genre}`;
+export const fetchVideosFromServer = (
+  sort = DEFAULT_SORTBY,
+  genre = DEFAULT_GENRE,
+) => (dispatch) => {
+  const url = `${REMOTE_HOST}movies?sortBy=${sort}&filter=${genre === 'all' ? '' : genre}&sortOrder=desc`;
   fetchUrl(url, dispatch);
 };
