@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Logo from '../../Components/UI/logo/Logo';
 import MyButton from '../../Components/UI/button/MyButton';
 
@@ -24,5 +25,9 @@ function Header({ onAddClick }) {
     </header>
   );
 }
+
+Header.propTypes = {
+  onAddClick: PropTypes.func.isRequired,
+};
 
 export default Header;

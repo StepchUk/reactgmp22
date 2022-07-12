@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import MyButton from '../button/MyButton';
 import Input from '../input/Input';
-import style from './VideoFormModal.module.css';
 
 const emptyVideo = {
   title: '',
@@ -110,8 +109,9 @@ function VideoForm({ editVideo, onSubmit, hideModal }) {
 }
 
 VideoForm.propTypes = {
-  onSubmit: PropTypes.func,
-  hideModal: PropTypes.func,
+  editVideo: PropTypes.objectOf([PropTypes.object]).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  hideModal: PropTypes.func.isRequired,
 };
 
 export default VideoForm;
