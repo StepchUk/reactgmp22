@@ -7,8 +7,7 @@ import {
   ErrorMessage,
 } from 'formik';
 import MyButton from '../button/MyButton';
-// import Input from '../input/Input';
-// import style from './VideoFormModal.module.css';
+import Input from '../input/Input';
 
 const emptyVideo = {
   title: '',

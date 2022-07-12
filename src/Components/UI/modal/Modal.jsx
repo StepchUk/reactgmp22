@@ -16,7 +16,7 @@ function Modal({
       <div className={style.modalContent} onClick={(e) => e.stopPropagation()}>
         <div className={style.modalHead}>
           <p>{title}</p>
-          <button onClick={onModalClose}>X</button>
+          <button type="submit" onClick={onModalClose}>X</button>
         </div>
         <p>{text}</p>
         {children}
@@ -26,9 +26,11 @@ function Modal({
 }
 
 Modal.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.node,
-  onModalClose: PropTypes.func,
+  className: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  onModalClose: PropTypes.func.isRequired,
 };
 
 export default Modal;
