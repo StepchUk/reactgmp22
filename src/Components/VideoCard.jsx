@@ -39,7 +39,7 @@ function VideoCard({
           <button
             type="submit"
             onClick={() => {
-              showDeleteModal(video);
+              showDeleteModal(id);
               hideModal();
             }}
           >

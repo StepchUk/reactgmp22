@@ -6,59 +6,97 @@ import {
   Field,
   ErrorMessage,
 } from 'formik';
+import { useDispatch } from 'react-redux';
 import MyButton from '../button/MyButton';
-import Input from '../input/Input';
+import { createMovie } from '../../../Services/Handlers/AsyncActionsHendlers';
 
 const emptyVideo = {
   title: '',
+  voteAverage: '',
+  releaseDate: '',
   posterPath: '',
-  year: '',
-  genre: ['horro', 'drama'],
-  rating: '',
-  runtime: '',
   overview: '',
+  genres: ['horro', 'drama'],
+  runtime: '',
 };
+
+const isValidUrl = (url) => {
+  let correctUrl;
+  try {
+    correctUrl = new URL(url);
+  } catch (e) {
+    return false;
+  }
+  return correctUrl;
+};
+
+function isIsoDate(str) {
+  if (!/\d{4}-\d{2}-\d{2}/.test(str)) return false;
+  return true;
+}
 
 const validation = (values) => {
   const errors = {};
   if (!values.title) {
     errors.title = 'Required';
   }
+
+  if (!isIsoDate(values.releaseDate)) {
+    errors.releaseDate = 'Incorrect date format. Date must be in YYYY-mm-dd format';
+  }
+
   if (!values.posterPath) {
     errors.posterPath = 'Required';
+  } else if (!isValidUrl(values.posterPath)) {
+    errors.posterPath = 'URL is not correct';
   }
+
   if (!values.runtime) {
     errors.runtime = 'Required';
   }
+
   if (!values.overview) {
     errors.overview = 'Required';
   }
-  if (!values.genre) {
-    errors.genre = 'Required';
+
+  if (!values.genres) {
+    errors.genres = 'Required';
   }
   return errors;
 };
 
-function VideoForm({ editVideo, onSubmit, hideModal }) {
+function VideoForm({ editVideo, hideModal }) {
   const [video, setVideo] = useState(emptyVideo);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (editVideo !== undefined) {
-      setVideo(editVideo);
+    if (editVideo !== null) {
+      setVideo({
+        ...editVideo,
+        runtime: editVideo.runtime === null ? 0 : editVideo.runtime,
+      });
     }
   }, [editVideo]);
 
   const onSubmitFormic = (values, { setSubmitting }) => {
-    const newVideo = {
+    const movie = {
       ...values,
+      genres: Array.isArray(values.genres) ? values.genres : values.genres.split(','),
+      tagline: values.tagline === '' ? values.title : values.tagline,
     };
 
-    onSubmit(newVideo);
+    try {
+      if (editVideo === null) {
+        dispatch(createMovie(movie));
+      } else {
+        dispatch(createMovie(movie, 'PUT'));
+      }
 
-    setVideo(emptyVideo);
-
-    hideModal();
-    setSubmitting(true);
+      hideModal();
+      setSubmitting(true);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -71,49 +109,63 @@ function VideoForm({ editVideo, onSubmit, hideModal }) {
       {({ isSubmitting, resetForm }) => (
         <Form>
           <ErrorMessage name="title" component="div" />
+          <label style={{ color: 'red' }} htmlFor="title">Title</label>
           <Field
+            id="title"
             type="text"
             name="title"
             placeholder="Enter movie title"
           />
           <br />
           <ErrorMessage name="releaseDate" component="div" />
+          <label style={{ color: 'red' }} htmlFor="releaseDate">RELEASE DATE</label>
           <Field
+            id="releaseDate"
             type="text"
             name="releaseDate"
             placeholder="Select Date"
           />
           <br />
           <ErrorMessage name="posterPath" component="div" />
+          <label style={{ color: 'red' }} htmlFor="posterPath">MOVIE URL</label>
           <Field
+            id="posterPath"
             type="text"
             name="posterPath"
             placeholder="https://"
           />
           <br />
-          <ErrorMessage name="rating" component="div" />
+          <ErrorMessage name="voteAverage" component="div" />
+          <label style={{ color: 'red' }} htmlFor="voteAverage">RATING</label>
           <Field
-            type="text"
-            name="rating"
+            id="voteAverage"
+            type="number"
+            name="voteAverage"
             placeholder="7.8"
           />
           <br />
-          <ErrorMessage name="genre" component="div" />
+          <ErrorMessage name="genres" component="div" />
+          <label style={{ color: 'red' }} htmlFor="voteAverage">GENRE</label>
           <Field
+            id="genres"
             type="text"
-            name="genre"
+            name="genres"
             placeholder="Select Genre"
           />
           <br />
           <ErrorMessage name="runtime" component="div" />
+          <label style={{ color: 'red' }} htmlFor="runtime">RUNTIME</label>
           <Field
-            type="text"
+            id="runtime"
+            type="number"
             name="runtime"
             placeholder="minutes"
           />
           <br />
           <ErrorMessage name="overview" component="div" />
+          <label style={{ color: 'red' }} htmlFor="overview">OVERVIEW</label>
           <Field
+            id="overview"
             type="text"
             as="textarea"
             name="overview"
@@ -123,9 +175,9 @@ function VideoForm({ editVideo, onSubmit, hideModal }) {
           <MyButton onClick={resetForm} className="button__gray-blurred">
             reset
           </MyButton>
-          <button type="submit" disabled={isSubmitting}>
+          <MyButton className="button__red" type="submit" disabled={isSubmitting}>
             Submit
-          </button>
+          </MyButton>
         </Form>
       )}
     </Formik>
@@ -133,14 +185,12 @@ function VideoForm({ editVideo, onSubmit, hideModal }) {
 }
 
 VideoForm.defaultProps = {
-  editVideo: undefined,
-  onSubmit: null,
+  editVideo: null,
   hideModal: null,
 };
 
 VideoForm.propTypes = {
-  editVideo: PropTypes.oneOf([PropTypes.object]),
-  onSubmit: PropTypes.func,
+  editVideo: PropTypes.oneOfType([PropTypes.object]),
   hideModal: PropTypes.func,
 };
 
