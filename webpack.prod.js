@@ -8,6 +8,7 @@ module.exports = merge(common, {
     static: '.build',
     compress: true,
     port: 3001,
+    historyApiFallback: true,
     // open: true
   },
   performance: {
