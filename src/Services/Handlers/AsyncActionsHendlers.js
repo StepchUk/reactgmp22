@@ -17,3 +17,15 @@ export const fetchVideosFromServer = (
   const url = `${REMOTE_HOST}movies?sortBy=${sort}&filter=${genre === 'all' ? '' : genre}&sortOrder=desc`;
   fetchUrl(url, dispatch);
 };
+
+export const fetchMovieFromServer = async (id) => {
+  const url = `${REMOTE_HOST}movies/${id}`;
+  const responce = await fetch(url);
+
+  if (responce.status === 404 && responce.ok === false) {
+    throw Error('Movie not found!');
+  }
+
+  const resultMovie = await responce.json();
+  return resultMovie;
+};
