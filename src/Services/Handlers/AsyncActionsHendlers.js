@@ -1,6 +1,8 @@
 import { REMOTE_HOST } from '../../Config/config';
-import { fetchVideosAction } from '../Actions/MoviesActions';
+import { fetchVideosAction, setFormRequest } from '../Actions/MoviesActions';
 import { toSnakeCase } from '../Utils/utils';
+
+const statuses = [200, 201, 204];
 
 const fetchUrl = (url, dispatch) => {
   fetch(url)
@@ -15,6 +17,8 @@ export const fetchVideosFromServer = () => (dispatch, getState) => {
 };
 
 export const createMovie = (movie, method = 'POST') => async (dispatch) => {
+  dispatch(setFormRequest({ isRunning: true }));
+
   const rawResponce = await fetch(`${REMOTE_HOST}movies`, {
     headers: {
       Accept: 'application/json',
@@ -24,17 +28,19 @@ export const createMovie = (movie, method = 'POST') => async (dispatch) => {
     body: (JSON.stringify(toSnakeCase(movie))),
   });
 
-  if (rawResponce.status === 200 && rawResponce.status === 201) {
+  if (rawResponce.status === 200 || rawResponce.status === 201) {
+    dispatch(setFormRequest({ isRunning: false, isFinished: true }));
     dispatch(fetchVideosFromServer());
-    return rawResponce.json();
+  } else {
+    dispatch(setFormRequest({ isRunning: false, isFinished: true, error: 'Somthing went wrong with request' }));
   }
 
-  throw Error('Wrong data for the post');
+  return rawResponce.json();
 };
 
 export const deleteMovie = (id) => async (dispatch) => {
   const responce = await fetch(`${REMOTE_HOST}movies/${id}`, { method: 'DELETE' });
-  if (responce.status === 200 && responce.status === 201 && responce.status === 204) {
+  if (statuses.includes(responce.status)) {
     dispatch(fetchVideosFromServer());
     return responce.json();
   }
