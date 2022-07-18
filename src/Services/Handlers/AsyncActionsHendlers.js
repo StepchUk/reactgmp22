@@ -15,25 +15,21 @@ export const fetchVideosFromServer = () => (dispatch, getState) => {
 };
 
 export const createMovie = (movie, method = 'POST') => async (dispatch) => {
-  try {
-    const rawResponce = await fetch(`${REMOTE_HOST}movies`, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method,
-      body: (JSON.stringify(toSnakeCase(movie))),
-    });
+  const rawResponce = await fetch(`${REMOTE_HOST}movies`, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    method,
+    body: (JSON.stringify(toSnakeCase(movie))),
+  });
 
-    if (rawResponce.status === 200 && rawResponce.status === 201) {
-      dispatch(fetchVideosFromServer());
-      return rawResponce.json();
-    }
-
-    return new Error(rawResponce.json());
-  } catch (e) {
-    return e;
+  if (rawResponce.status === 200 && rawResponce.status === 201) {
+    dispatch(fetchVideosFromServer());
+    return rawResponce.json();
   }
+
+  throw Error('Wrong data for the post');
 };
 
 export const deleteMovie = (id) => async (dispatch) => {
@@ -43,5 +39,5 @@ export const deleteMovie = (id) => async (dispatch) => {
     return responce.json();
   }
 
-  return new Error(responce.body);
+  throw Error(responce.body);
 };
