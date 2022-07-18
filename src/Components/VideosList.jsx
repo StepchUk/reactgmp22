@@ -5,7 +5,7 @@ import { fetchVideosFromServer } from '../Services/Handlers/AsyncActionsHendlers
 import VideoCard from './VideoCard';
 
 function VideosList({
-  showDeleteModal, showEditVideoModal, onVideoDetailClick,
+  showDeleteModal, showEditVideoModal,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const videos = useSelector((state) => state.videos);
@@ -39,7 +39,6 @@ function VideosList({
             video={video}
             showDeleteModal={showDeleteModal}
             showEditVideoModal={showEditVideoModal}
-            onVideoDetailClick={onVideoDetailClick}
           />
         ))}
       </section>
@@ -50,7 +49,6 @@ function VideosList({
 VideosList.propTypes = {
   showDeleteModal: PropTypes.func.isRequired,
   showEditVideoModal: PropTypes.func.isRequired,
-  onVideoDetailClick: PropTypes.func.isRequired,
 };
 
 export default VideosList;
