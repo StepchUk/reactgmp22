@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Logo from '../../Components/UI/logo/Logo';
 import MyButton from '../../Components/UI/button/MyButton';
 
 function Header({ onAddClick }) {
   return (
     <header className="header">
       <div className="container">
-        <Logo actionType="add" onAddClick={onAddClick} />
+        <div className="logo__inner">
+          <div className="logo__text">
+            <b>netflix</b>
+            roulette
+          </div>
+          <MyButton className="button__gray-blurred" onClick={() => onAddClick()}>+ add movie</MyButton>
+        </div>
         <div className="info">
           <div className="header__intro">
             find your movie
