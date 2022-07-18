@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import Body from './Layouts/body/Body';
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Footer from './Layouts/footer/Footer';
 import Header from './Layouts/header/Header';
 import ErrorBoundary from './Components/ErrorBoundary';
@@ -8,20 +8,10 @@ import VideoFormModal from './Components/UI/videoformmodal/VideoFormModal';
 import VideoDetails from './Components/VideoDetails';
 import MyButton from './Components/UI/button/MyButton';
 import useModalState from './hooks/useModalState';
-import { useVideoSelector } from './Services/Selectors/MoviesSelectors';
+import Main from './Layouts/main/Main';
 
 function App() {
-  const videos = useVideoSelector();
-  const [videoDetail, setVideoDetail] = useState();
-
-  const showVideoDetails = !!videoDetail;
-  const hideVideoDetails = () => setVideoDetail(null);
-
   const modal = useModalState();
-
-  const handleVideoClick = useCallback((id) => {
-    setVideoDetail(videos.find((video) => video.id === id));
-  }, [videos]);
 
   return (
     <>
@@ -49,15 +39,16 @@ function App() {
             <MyButton className="button__red">confirm</MyButton>
           </Modal>
           )}
-
-        {showVideoDetails
-          ? <VideoDetails video={videoDetail} onVideoDetailClose={hideVideoDetails} />
-          : <Header onAddClick={modal.showAdd} />}
-        <Body
-          showEditVideoModal={modal.showEdit}
-          showDeleteModal={modal.showConfirm}
-          onVideoDetailClick={handleVideoClick}
-        />
+        <Routes>
+          <Route path="/" element={<Main showEditVideoModal={modal.showEdit} showDeleteModal={modal.showConfirm} />}>
+            {/* <Navigate to="/search" replace /> */}
+            <Route index element={<Header onAddClick={modal.showAdd} />} />
+            <Route path="search" element={<Header onAddClick={modal.showAdd} />} />
+            <Route path="movie" element={<VideoDetails />} />
+            <Route path="movie/:id" element={<VideoDetails />} />
+          </Route>
+          <Route path="*" element={<p>Not Found</p>} />
+        </Routes>
       </ErrorBoundary>
       <Footer />
     </>
