@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Body from './Layouts/body/Body';
 import Footer from './Layouts/footer/Footer';
 import Header from './Layouts/header/Header';
@@ -9,10 +10,12 @@ import VideoDetails from './Components/VideoDetails';
 import MyButton from './Components/UI/button/MyButton';
 import useModalState from './hooks/useModalState';
 import { useVideoSelector } from './Services/Selectors/MoviesSelectors';
+import { deleteMovie } from './Services/Handlers/AsyncActionsHendlers';
 
 function App() {
   const videos = useVideoSelector();
   const [videoDetail, setVideoDetail] = useState();
+  const dispatch = useDispatch();
 
   const showVideoDetails = !!videoDetail;
   const hideVideoDetails = () => setVideoDetail(null);
@@ -46,7 +49,7 @@ function App() {
             text="Are you sure you want to delete this movie?"
             onModalClose={modal.close}
           >
-            <MyButton className="button__red">confirm</MyButton>
+            <MyButton className="button__red" onClick={() => { dispatch(deleteMovie(modal.data)); modal.close(); }}>confirm</MyButton>
           </Modal>
           )}
 

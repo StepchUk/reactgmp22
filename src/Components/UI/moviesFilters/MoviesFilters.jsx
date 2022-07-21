@@ -1,37 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchVideosFromServer } from '../../../Services/Handlers/AsyncActionsHendlers';
-
-const GENRE = ['all', 'documentary', 'comedy', 'horror', 'crime'];
-const SORT_TYPE = ['release_date', 'vote_average'];
+import { GENRES, SORT_TYPES } from '../../../Constants';
+import { useGenreSelector, useSortBySelector } from '../../../Services/Selectors/MoviesSelectors';
+import { setGenresAction, setSortByAction } from '../../../Services/Actions/MoviesActions';
 
 function MoviesFilters() {
-  const [genreFilter, setGenreFilter] = useState(GENRE[0]);
-  const [sortFilter, setSortFilter] = useState(SORT_TYPE[0]);
-
+  const sortBy = useSortBySelector();
+  const genre = useGenreSelector();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchVideosFromServer(sortFilter, genreFilter));
-  }, [genreFilter, sortFilter]);
+    dispatch(fetchVideosFromServer());
+  }, [genre, sortBy]);
 
   return (
     <div className="sort">
       <div className="genre">
-        {GENRE.map((genre) => <button type="submit" key={genre} onClick={(e) => setGenreFilter(e.currentTarget.textContent)} className="genre__item">{genre}</button>)}
+        {GENRES.map(
+          (curentGenre) => <button type="submit" key={curentGenre} onClick={(e) => dispatch(setGenresAction(e.currentTarget.textContent))} className="genre__item">{curentGenre}</button>,
+        )}
       </div>
       <div className="sortby">
         <label className="srtlable" htmlFor="srt">sort by</label>
         <select
           name="srt"
           id="srt"
-          onChange={(e) => setSortFilter(e.target.value)}
+          onChange={(e) => dispatch(setSortByAction(e.target.value))}
         >
-          {SORT_TYPE.map((type) => <option key={type} value={type}>{type}</option>)}
+          {SORT_TYPES.map(
+            (curretnType) => <option key={curretnType} value={curretnType}>{curretnType}</option>,
+          )}
         </select>
       </div>
     </div>
   );
-};
+}
 
 export default MoviesFilters;

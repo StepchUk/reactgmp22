@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchVideosFromServer } from '../Services/Handlers/AsyncActionsHendlers';
 import VideoCard from './VideoCard';
+import { useVideoSelector } from '../Services/Selectors/MoviesSelectors';
 
 function VideosList({
   showDeleteModal, showEditVideoModal, onVideoDetailClick,
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const videos = useSelector((state) => state.videos);
+  const videos = useVideoSelector();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,10 +34,10 @@ function VideosList({
       </div>
 
       <section className="films">
-        {isLoading ? <div>Loading</div> : videos.map((video) => (
+        {isLoading ? <div>Loading</div> : videos.map((curentVideo) => (
           <VideoCard
-            key={video.id}
-            video={video}
+            key={curentVideo.id}
+            video={curentVideo}
             showDeleteModal={showDeleteModal}
             showEditVideoModal={showEditVideoModal}
             onVideoDetailClick={onVideoDetailClick}

@@ -25,10 +25,15 @@ function Modal({
   );
 }
 
+Modal.defaultProps = {
+  text: null,
+  title: null,
+};
+
 Modal.propTypes = {
   className: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  text: PropTypes.string,
   children: PropTypes.node.isRequired,
   onModalClose: PropTypes.func.isRequired,
 };
