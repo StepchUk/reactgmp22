@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getYear } from '../Services/Utils/utils';
+import { getYear } from '../utils';
 import DefaultPropTypes from '../Common/global_prop_types';
 import Modal from './UI/modal/Modal';
 import defaultVideo from '../Assets/Images/No-Image-Placeholder.png';
@@ -40,7 +40,7 @@ function VideoCard({
           <button
             type="submit"
             onClick={() => {
-              showDeleteModal(video);
+              showDeleteModal(id);
               hideModal();
             }}
           >

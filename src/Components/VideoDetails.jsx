@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getYear } from '../Services/Utils/utils';
 import defaultMovieImage from '../Assets/Images/No-Image-Placeholder.png';
 import searchIcon from '../Assets/Images/search-icon.png';
 import { fetchMovieFromServer } from '../Services/Handlers/AsyncActionsHendlers';
+import { getYear } from '../utils';
 
 const duration = (minutes) => {
   const hours = Math.floor(minutes / 60);

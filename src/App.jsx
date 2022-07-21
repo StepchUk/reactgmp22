@@ -1,5 +1,6 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import Body from './Layouts/body/Body';
 import Footer from './Layouts/footer/Footer';
 import Header from './Layouts/header/Header';
 import ErrorBoundary from './Components/ErrorBoundary';
@@ -8,10 +9,22 @@ import VideoFormModal from './Components/UI/videoformmodal/VideoFormModal';
 import VideoDetails from './Components/VideoDetails';
 import MyButton from './Components/UI/button/MyButton';
 import useModalState from './hooks/useModalState';
-import Main from './Layouts/main/Main';
+import { useVideoSelector } from './Services/Selectors/MoviesSelectors';
+import { deleteMovie } from './Services/Handlers/AsyncActionsHendlers';
 
 function App() {
+  const videos = useVideoSelector();
+  const [videoDetail, setVideoDetail] = useState();
+  const dispatch = useDispatch();
+
+  const showVideoDetails = !!videoDetail;
+  const hideVideoDetails = () => setVideoDetail(null);
+
   const modal = useModalState();
+
+  const handleVideoClick = useCallback((id) => {
+    setVideoDetail(videos.find((video) => video.id === id));
+  }, [videos]);
 
   return (
     <>
@@ -36,19 +49,18 @@ function App() {
             text="Are you sure you want to delete this movie?"
             onModalClose={modal.close}
           >
-            <MyButton className="button__red">confirm</MyButton>
+            <MyButton className="button__red" onClick={() => { dispatch(deleteMovie(modal.data)); modal.close(); }}>confirm</MyButton>
           </Modal>
           )}
-        <Routes>
-          <Route path="/" element={<Main showEditVideoModal={modal.showEdit} showDeleteModal={modal.showConfirm} />}>
-            {/* <Navigate to="/search" replace /> */}
-            <Route index element={<Header onAddClick={modal.showAdd} />} />
-            <Route path="search" element={<Header onAddClick={modal.showAdd} />} />
-            <Route path="movie" element={<VideoDetails />} />
-            <Route path="movie/:id" element={<VideoDetails />} />
-          </Route>
-          <Route path="*" element={<p>Not Found</p>} />
-        </Routes>
+
+        {showVideoDetails
+          ? <VideoDetails video={videoDetail} onVideoDetailClose={hideVideoDetails} />
+          : <Header onAddClick={modal.showAdd} />}
+        <Body
+          showEditVideoModal={modal.showEdit}
+          showDeleteModal={modal.showConfirm}
+          onVideoDetailClick={handleVideoClick}
+        />
       </ErrorBoundary>
       <Footer />
     </>
