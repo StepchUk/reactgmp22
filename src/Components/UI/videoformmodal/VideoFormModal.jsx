@@ -11,6 +11,7 @@ import MyButton from '../button/MyButton';
 import { createMovie } from '../../../Services/Handlers/AsyncActionsHendlers';
 import { useFormReuquestSelector } from '../../../Services/Selectors/MoviesSelectors';
 import { setFormRequest } from '../../../Services/Actions/MoviesActions';
+import { movieFormValidation } from '../../../utils';
 
 const emptyVideo = {
   title: '',
@@ -20,51 +21,6 @@ const emptyVideo = {
   overview: '',
   genres: ['horro', 'drama'],
   runtime: '',
-};
-
-const isValidUrl = (url) => {
-  let correctUrl;
-  try {
-    correctUrl = new URL(url);
-  } catch (e) {
-    return false;
-  }
-  return correctUrl;
-};
-
-function isIsoDate(str) {
-  if (!/\d{4}-\d{2}-\d{2}/.test(str)) return false;
-  return true;
-}
-
-const validation = (values) => {
-  const errors = {};
-  if (!values.title) {
-    errors.title = 'Required';
-  }
-
-  if (!isIsoDate(values.releaseDate)) {
-    errors.releaseDate = 'Incorrect date format. Date must be in YYYY-mm-dd format';
-  }
-
-  if (!values.posterPath) {
-    errors.posterPath = 'Required';
-  } else if (!isValidUrl(values.posterPath)) {
-    errors.posterPath = 'URL is not correct';
-  }
-
-  if (!values.runtime) {
-    errors.runtime = 'Required';
-  }
-
-  if (!values.overview) {
-    errors.overview = 'Required';
-  }
-
-  if (!values.genres) {
-    errors.genres = 'Required';
-  }
-  return errors;
 };
 
 function VideoForm({ editVideo, hideModal }) {
@@ -82,10 +38,9 @@ function VideoForm({ editVideo, hideModal }) {
   }, [editVideo]);
 
   useEffect(() => {
-    if (request.isFinished && !request.error) {
-      hideModal();
-      dispatch(setFormRequest({ isFinished: false, error: undefined }));
-    }
+    if (!request.isFinished || request.error) return;
+    hideModal();
+    dispatch(setFormRequest({ isFinished: false, error: undefined }));
   }, [request.isFinished, request.error]);
 
   const onSubmitFormic = (values, { setSubmitting }) => {
@@ -109,7 +64,7 @@ function VideoForm({ editVideo, hideModal }) {
       {request.error ? <p>Error on request</p> : ''}
       <Formik
         initialValues={video}
-        validate={validation}
+        validate={movieFormValidation}
         onSubmit={onSubmitFormic}
         enableReinitialize
       >
