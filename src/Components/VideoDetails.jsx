@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getYear } from '../Services/Utils/utils';
+import { getYear } from '../utils';
 import Logo from './UI/logo/Logo';
 import defaultVideo from '../Assets/Images/No-Image-Placeholder.png';
 
