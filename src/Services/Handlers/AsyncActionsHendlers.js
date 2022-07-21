@@ -1,6 +1,6 @@
 import { REMOTE_HOST } from '../../Config/config';
 import { fetchVideosAction, setFormRequest } from '../Actions/MoviesActions';
-import { toSnakeCase } from '../Utils/utils';
+import { toSnakeCase } from '../../utils';
 
 const statuses = [200, 201, 204];
 
@@ -45,5 +45,6 @@ export const deleteMovie = (id) => async (dispatch) => {
     return responce.json();
   }
 
+  console.error(`Failed request to delete movie by ${id}`);
   throw Error(responce.body);
 };
