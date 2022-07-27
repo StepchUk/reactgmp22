@@ -57,7 +57,7 @@ function VideoCard({
       >
         ...
       </button>
-      <Link to={`/movie/${id}`}>
+      <Link to={`/search?movie=${id}`}>
         <div className="card">
           <img
             src={posterPath}

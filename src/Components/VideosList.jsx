@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { fetchVideosFromServer } from '../Services/Handlers/AsyncActionsHendlers';
@@ -11,19 +12,20 @@ function VideosList({
   const [isLoading, setIsLoading] = useState(false);
   const videos = useVideoSelector();
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const getVideosFromServer = async () => {
       try {
         setIsLoading(true);
-        await dispatch(fetchVideosFromServer());
+        await dispatch(fetchVideosFromServer(searchParams.get('searchQuery') || ''));
       } finally {
         setIsLoading(false);
       }
     };
 
     getVideosFromServer();
-  }, []);
+  }, [searchParams]);
 
   return (
     <section className="container">
