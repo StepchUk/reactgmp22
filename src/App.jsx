@@ -1,30 +1,19 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import Body from './Layouts/body/Body';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Footer from './Layouts/footer/Footer';
-import Header from './Layouts/header/Header';
 import ErrorBoundary from './Components/ErrorBoundary';
 import Modal from './Components/UI/modal/Modal';
 import VideoFormModal from './Components/UI/videoformmodal/VideoFormModal';
-import VideoDetails from './Components/VideoDetails';
 import MyButton from './Components/UI/button/MyButton';
 import useModalState from './hooks/useModalState';
-import { useVideoSelector } from './Services/Selectors/MoviesSelectors';
 import { deleteMovie } from './Services/Handlers/AsyncActionsHendlers';
+import Search from './Pages/Search/Search';
+import NotFound from './Pages/Error/NotFound';
 
 function App() {
-  const videos = useVideoSelector();
-  const [videoDetail, setVideoDetail] = useState();
   const dispatch = useDispatch();
-
-  const showVideoDetails = !!videoDetail;
-  const hideVideoDetails = () => setVideoDetail(null);
-
   const modal = useModalState();
-
-  const handleVideoClick = useCallback((id) => {
-    setVideoDetail(videos.find((video) => video.id === id));
-  }, [videos]);
 
   return (
     <>
@@ -53,14 +42,12 @@ function App() {
           </Modal>
           )}
 
-        {showVideoDetails
-          ? <VideoDetails video={videoDetail} onVideoDetailClose={hideVideoDetails} />
-          : <Header onAddClick={modal.showAdd} />}
-        <Body
-          showEditVideoModal={modal.showEdit}
-          showDeleteModal={modal.showConfirm}
-          onVideoDetailClick={handleVideoClick}
-        />
+        <Routes>
+          <Route path="/" element={<Navigate to="/search" replace />} />
+          <Route path="/search" element={<Search modalHendler={modal} />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+
       </ErrorBoundary>
       <Footer />
     </>
