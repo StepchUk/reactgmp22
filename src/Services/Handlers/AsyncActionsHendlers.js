@@ -1,6 +1,6 @@
 import { REMOTE_HOST } from '../../Config/config';
-import { fetchVideosAction, setFormRequest } from '../Actions/MoviesActions';
-import { trasnformToCamelCase, toSnakeCase } from '../../utils';
+import { fetchVideosAction, setFormRequest, setVideoAction } from '../Actions/MoviesActions';
+import { toSnakeCase } from '../../utils';
 
 const statuses = [200, 201, 204];
 
@@ -16,16 +16,17 @@ export const fetchVideosFromServer = (search = '') => (dispatch, getState) => {
   fetchUrl(url, dispatch);
 };
 
-export const fetchMovieFromServer = (id) => async (dispatch) => {
-  dispatch(setFormRequest({ isRunning: true }));
+export const fetchMovieById = (id) => async (dispatch) => {
+  dispatch(setFormRequest({ isRunning: true, isFinished: false, error: undefined }));
 
   const url = `${REMOTE_HOST}movies/${id}`;
   const rawResponce = await fetch(url);
 
   if (rawResponce.status === 200) {
     const resultMovie = await rawResponce.json();
-    dispatch(setFormRequest({ isRunning: false, isFinished: true }));
-    return trasnformToCamelCase(resultMovie);
+    dispatch(setVideoAction(resultMovie));
+    dispatch(setFormRequest({ isRunning: false, isFinished: true, error: undefined }));
+    return;
   }
 
   console.error(`Failed request to get movie by ${id}`);
