@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { fetchVideosFromServer } from '../Services/Handlers/AsyncActionsHendlers';
 import VideoCard from './VideoCard';
-import { useVideoSelector } from '../Services/Selectors/MoviesSelectors';
+import { useVideosSelector } from '../Services/Selectors/MoviesSelectors';
 
 function VideosList({
   showDeleteModal, showEditVideoModal,
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const videos = useVideoSelector();
+  const videos = useVideosSelector();
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
