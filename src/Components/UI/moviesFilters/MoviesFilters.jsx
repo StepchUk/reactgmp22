@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { fetchVideosFromServer } from '../../../Services/Handlers/AsyncActionsHendlers';
 import { GENRES, SORT_TYPES } from '../../../Constants';
 import { useGenreSelector, useSortBySelector } from '../../../Services/Selectors/MoviesSelectors';
-import { setGenresAction, setSortByAction } from '../../../Services/Actions/MoviesActions';
 
 function MoviesFilters() {
+  const navigate = useNavigate();
   const sortBy = useSortBySelector();
   const genre = useGenreSelector();
   const dispatch = useDispatch();
@@ -18,7 +19,15 @@ function MoviesFilters() {
     <div className="sort">
       <div className="genre">
         {GENRES.map(
-          (curentGenre) => <button type="submit" key={curentGenre} onClick={(e) => dispatch(setGenresAction(e.currentTarget.textContent))} className="genre__item">{curentGenre}</button>,
+          (curentGenre) => (
+            <NavLink
+              className={({ isActive }) => isActive ? 'genre__item' : '' }
+              to={`/search?genre=${curentGenre}`}
+              key={curentGenre}
+            >
+              {curentGenre}
+            </NavLink>
+          ),
         )}
       </div>
       <div className="sortby">
@@ -26,7 +35,7 @@ function MoviesFilters() {
         <select
           name="srt"
           id="srt"
-          onChange={(e) => dispatch(setSortByAction(e.target.value))}
+          onChange={(e) => navigate(`/search?sortBy=${e.target.value}`)}
         >
           {SORT_TYPES.map(
             (curretnType) => <option key={curretnType} value={curretnType}>{curretnType}</option>,
