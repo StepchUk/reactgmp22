@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { fetchVideosFromServer } from '../Services/Handlers/AsyncActionsHendlers';
 import VideoCard from './VideoCard';
-import { useVideoSelector } from '../Services/Selectors/MoviesSelectors';
+import { useVideosSelector } from '../Services/Selectors/MoviesSelectors';
 
 function VideosList({
-  showDeleteModal, showEditVideoModal, onVideoDetailClick,
+  showDeleteModal, showEditVideoModal,
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const videos = useVideoSelector();
+  const videos = useVideosSelector();
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const getVideosFromServer = async () => {
       try {
         setIsLoading(true);
-        await dispatch(fetchVideosFromServer());
+        await dispatch(fetchVideosFromServer(searchParams.get('searchQuery') || ''));
       } finally {
         setIsLoading(false);
       }
     };
 
     getVideosFromServer();
-  }, []);
+  }, [searchParams]);
 
   return (
     <section className="container">
@@ -40,7 +42,6 @@ function VideosList({
             video={curentVideo}
             showDeleteModal={showDeleteModal}
             showEditVideoModal={showEditVideoModal}
-            onVideoDetailClick={onVideoDetailClick}
           />
         ))}
       </section>
@@ -51,7 +52,6 @@ function VideosList({
 VideosList.propTypes = {
   showDeleteModal: PropTypes.func.isRequired,
   showEditVideoModal: PropTypes.func.isRequired,
-  onVideoDetailClick: PropTypes.func.isRequired,
 };
 
 export default VideosList;

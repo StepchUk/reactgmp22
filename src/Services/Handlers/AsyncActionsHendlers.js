@@ -1,5 +1,5 @@
 import { REMOTE_HOST } from '../../Config/config';
-import { fetchVideosAction, setFormRequest } from '../Actions/MoviesActions';
+import { fetchVideosAction, setFormRequest, setVideoAction } from '../Actions/MoviesActions';
 import { toSnakeCase } from '../../utils';
 
 const statuses = [200, 201, 204];
@@ -10,10 +10,28 @@ const fetchUrl = (url, dispatch) => {
     .then((json) => dispatch(fetchVideosAction(json)));
 };
 
-export const fetchVideosFromServer = () => (dispatch, getState) => {
+export const fetchVideosFromServer = (search = '') => (dispatch, getState) => {
   const state = getState();
-  const url = `${REMOTE_HOST}movies?sortBy=${state.sortBy}&filter=${state.genre === 'all' ? '' : state.genre}&sortOrder=desc`;
+  const url = `${REMOTE_HOST}movies?search=${search}&searchBy=title&sortBy=${state.sortBy}&filter=${state.genre === 'all' ? '' : state.genre}&sortOrder=desc`;
   fetchUrl(url, dispatch);
+};
+
+export const fetchMovieById = (id) => async (dispatch) => {
+  dispatch(setFormRequest({ isRunning: true, isFinished: false, error: undefined }));
+
+  const url = `${REMOTE_HOST}movies/${id}`;
+  const rawResponce = await fetch(url);
+
+  if (rawResponce.status === 200) {
+    const resultMovie = await rawResponce.json();
+    dispatch(setVideoAction(resultMovie));
+    dispatch(setFormRequest({ isRunning: false, isFinished: true, error: undefined }));
+    return;
+  }
+
+  console.error(`Failed request to get movie by ${id}`);
+  dispatch(setFormRequest({ isRunning: false, isFinished: true, error: `Failed request to get movie by ${id}` }));
+  throw Error(rawResponce.body);
 };
 
 export const createMovie = (movie, method = 'POST') => async (dispatch) => {

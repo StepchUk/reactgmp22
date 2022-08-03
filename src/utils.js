@@ -13,9 +13,6 @@
 
 const camelFn = (key) => key.replace(/_([a-z])/g, (_, m) => m.toUpperCase());
 const snakeFn = (str) => str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
-const trasnform = (o, fn) => Object.fromEntries(
-  Object.entries(o).map(([k, v]) => [fn(k), v]),
-);
 
 const isIsoDate = (str) => !/\d{4}-\d{2}-\d{2}/.test(str);
 
@@ -27,8 +24,13 @@ const isValidUrl = (url) => {
   }
 };
 
-export const toCamelCase = (arrayOfObjects) => arrayOfObjects.map((o) => trasnform(o, camelFn));
-export const toSnakeCase = (o) => trasnform(o, snakeFn);
+export const trasnformToCamelCase = (o) => Object.fromEntries(
+  Object.entries(o).map(([k, v]) => [camelFn(k), v]),
+);
+export const toCamelCase = (arrayOfObjects) => arrayOfObjects.map(
+  (o) => trasnformToCamelCase(o),
+);
+export const toSnakeCase = (o) => trasnformToCamelCase(o, snakeFn);
 
 export const getYear = (date) => date.split('-')[0];
 
