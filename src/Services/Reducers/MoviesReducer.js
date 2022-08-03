@@ -1,5 +1,6 @@
 import {
   FETCH_VIDEOS,
+  SET_VIDEO,
   SET_SORT_BY,
   SET_GENRES,
   SET_FORM_REQUEST,
@@ -8,6 +9,7 @@ import { GENRES, SORT_TYPES } from '../../Constants';
 
 const defaultState = {
   videos: [],
+  video: {},
   sortBy: SORT_TYPES[0],
   genre: GENRES[0],
   request: {
@@ -23,6 +25,8 @@ export default (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_VIDEOS:
       return { ...state, videos: payload.data };
+    case SET_VIDEO:
+      return { ...state, video: payload };
     case SET_SORT_BY:
       return { ...state, sortBy: payload };
     case SET_GENRES:

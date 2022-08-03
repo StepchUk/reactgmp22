@@ -4,7 +4,7 @@ import VideosList from '../../Components/VideosList';
 import MoviesFilters from '../../Components/UI/moviesFilters/MoviesFilters';
 
 function Body({
-  onVideoDetailClick, showEditVideoModal, showDeleteModal,
+  showEditVideoModal, showDeleteModal,
 }) {
   return (
     <main className="main">
@@ -14,7 +14,6 @@ function Body({
       <VideosList
         showEditVideoModal={showEditVideoModal}
         showDeleteModal={showDeleteModal}
-        onVideoDetailClick={onVideoDetailClick}
       />
     </main>
   );
@@ -23,7 +22,6 @@ function Body({
 Body.propTypes = {
   showDeleteModal: PropTypes.func.isRequired,
   showEditVideoModal: PropTypes.func.isRequired,
-  onVideoDetailClick: PropTypes.func.isRequired,
 };
 
 export default Body;
