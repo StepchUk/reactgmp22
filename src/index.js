@@ -5,15 +5,17 @@ import { BrowserRouter } from 'react-router-dom';
 import Store from './Services/Store/MoviesStore';
 import App from './App';
 import './index.css';
+import Test from './Test';
 
 const root = ReactDom.createRoot(document.getElementById('root'));
 
-root.render(
+root.hydrate(
   <React.StrictMode>
-    <Provider store={Store}>
+    <Test />
+    {/* <Provider store={Store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>
+    </Provider> */}
   </React.StrictMode>,
 );

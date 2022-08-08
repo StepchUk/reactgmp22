@@ -4,9 +4,6 @@ const EslintWebpackPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: {
-    app: './src/index.js',
-  },
   output: {
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
