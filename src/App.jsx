@@ -1,6 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import {
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom';
 import Footer from './Layouts/footer/Footer';
 import ErrorBoundary from './Components/ErrorBoundary';
 import Modal from './Components/UI/modal/Modal';
@@ -11,19 +15,23 @@ import { deleteMovie } from './Services/Handlers/AsyncActionsHendlers';
 import Search from './Pages/Search/Search';
 import NotFound from './Pages/Error/NotFound';
 
-function App() {
+function App({
+  Router,
+  location,
+  context,
+}) {
   const dispatch = useDispatch();
   const modal = useModalState();
 
   return (
-    <>
+    <Router location={location} context={context}>
       <ErrorBoundary>
         {modal.isAddType
-         && (
-         <Modal className="videoModal" title="add movie" onModalClose={modal.close}>
-           <VideoFormModal hideModal={modal.close} />
-         </Modal>
-         )}
+        && (
+        <Modal className="videoModal" title="add movie" onModalClose={modal.close}>
+          <VideoFormModal hideModal={modal.close} />
+        </Modal>
+        )}
         {modal.isEditType
           && (
           <Modal className="videoModal" title="edit movie" onModalClose={modal.close}>
@@ -47,10 +55,9 @@ function App() {
           <Route path="/search" element={<Search modalHendler={modal} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-
       </ErrorBoundary>
       <Footer />
-    </>
+    </Router>
   );
 }
 
